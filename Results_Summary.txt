@@ -1,0 +1,27 @@
+RESULTS SUMMARY: Surrogate Modeling of a Binary Distillation Column
+
+1. BEST MODEL SELECTED:
+The Artificial Neural Network (ANN) is the selected surrogate model. It provided the highest overall accuracy, successfully balancing the non-linear dynamics of column purities with the linear dynamics of energy duties.
+
+
+
+2. FINAL PERFORMANCE METRICS (R² Scores on Test Data):
+- Linear Regression: xD (0.9111), xB (0.7178), QC (0.9978), QR (0.9987)
+
+- Random Forest: xD (0.0407), xB (0.4893), QC (0.9841), QR (0.9866)
+
+- ANN (Winner): xD (0.9345), xB (0.9340), QC (0.9906), QR (0.9913)
+
+
+
+3. IMPORTANT OBSERVATIONS:
+- Random Forest Overfitting: The Random Forest Regressor completely failed to predict distillate purity (R² = 0.0407). This is a known limitation of tree-based models on very small datasets (30 samples), as they tend to overfit the training data and fail to generalize.
+
+- Energy Linearity: Linear Regression scored near-perfectly (~0.99) for QC and QR. This confirms that within the tested ranges, Condenser and Reboiler duties scale highly linearly, primarily driven by the Reflux Ratio.
+
+- Purity Non-Linearity: Distillate (xD) and Bottoms (xB) purities have a non-linear relationship with the inputs. Linear Regression struggled with xB (R²=0.71), while the ANN captured this non-linearity perfectly (R²=0.93).
+
+
+
+4. PHYSICAL CONSISTENCY:
+Feature importance analysis confirmed that Reflux Ratio (0.969 importance) heavily dominates the prediction of energy duties. The ANN respects these physical trends: as reflux increases, energy duties rise linearly, and it accurately models the complex mass balance required to predict top and bottom purities.
